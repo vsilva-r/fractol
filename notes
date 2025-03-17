@@ -1,0 +1,25 @@
+parsing
+
+event handling
+
+render
+
+ok so I-m gonna get a input like
+
+./fractol julia 9 2
+
+parsing - receber os args, error handle, etc
+
+grid handling: [0, 1980] becomes [-2, 2]
+
+init window
+init image
+loop thru pixels
+	img_pixel_put
+image_to_window
+
+
+What is the image?
+What are the two pointers in the image struct?
+- The get_addr pointer is the pointer to the first pixel in the array of pixels.
+- The pointer from mlx_new_image is... what?

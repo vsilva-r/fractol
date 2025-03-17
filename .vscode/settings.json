@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "mlx.h": "c",
+        "mlx_int.h": "c",
+        "fractol.h": "c",
+        "x.h": "c",
+        "keysym.h": "c",
+        "stdio.h": "c"
+    }
+}
