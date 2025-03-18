@@ -1,14 +1,68 @@
 #include "fractol.h"
-#define HEI 1080
-#define WID 1920
+#include <math.h>
+#define HEI 500
+#define WID 800
+#define MAX_ITER 424
+#define BOUND 2
 
-
+// LEARN HOW THIS WORKS
 void	ft_pixel_put(int x, int y, t_data *img, int color)
 {
 	int	offset;
 
 	offset = (y * img->line_length) + (x * (img->bpp / 8));
 	*(unsigned int *)(img->addr + offset) = color;
+}
+
+t_complex compute(t_complex z, t_complex c)
+{
+    t_complex   result;
+
+    result.x = pow(z.x, 2) - pow(z.y, 2) + c.x;
+    result.y = 2 * z.x * z.y + c.y;
+    return(result);
+}
+
+double  magnitude(t_complex z)
+{
+    double abs;
+
+    abs = sqrt((z.x * z.x) + (z.y * z.y));
+    return abs;
+}
+
+int    do_iterate(t_complex z, t_complex c, int max_iter, double bound)
+{
+    int iter;
+    while(iter <= max_iter)
+    {
+        z = compute(z, c);
+        if(magnitude(z) > bound)
+            break ;
+    }
+
+    return  iter;
+}
+
+t_complex   get_complex(double x, double y, t_data img)
+{
+    t_complex   z;
+
+    z.x = -BOUND + (x / WID) * 2 * BOUND;
+    z.y = BOUND - (y / HEI) * 2 * BOUND;
+    return(z);
+}
+
+void    get_pixel_color(int x, int y, t_complex c, t_data *img)
+{
+    t_complex   z;
+    int         iter;
+    int         color;
+
+    z = get_complex((double)x, (double)y, *img);
+    iter = do_iterate(z, c, MAX_ITER, BOUND);
+    color = COLOR_MAX / MAX_ITER * (iter % MAX_ITER);
+    ft_pixel_put(x, y, img, color);
 }
 
 int	main(int argc, char **argv)
@@ -18,8 +72,10 @@ int	main(int argc, char **argv)
     t_data    img;
     int     y;
     int     x;
-    int     color = 91*255 + 0;
+    t_complex   c;
 
+    c.x = 0;
+    c.y = 0;
 	mlx = mlx_init();
     if (!mlx)
         return(-1);
@@ -35,10 +91,8 @@ int	main(int argc, char **argv)
         x = -1;
         while (++x < WID)
         {
-            ft_pixel_put(x, y, &img, color);
+            get_pixel_color(x, y, c, &img);
         }
-        if(y == HEI / 2)
-            color = 255*255*255 + 213*255 + 0;
     }
     mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
     mlx_loop(mlx);
@@ -47,3 +101,5 @@ int	main(int argc, char **argv)
 	free(mlx);
     return(0);
 }
+
+/* Apparently there are leaks to solve!  */
