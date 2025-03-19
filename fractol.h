@@ -13,6 +13,11 @@
 # define YELLOW 	50 *255*255 + 255*255 + 250
 # define COLOR_MAX 	255*255*255 + 255*255 + 255
 
+# define HEI 500
+# define WID 800
+# define MAX_ITER 424
+# define BOUND 2
+
 typedef	struct s_complex
 {
 	double	x;
@@ -28,5 +33,12 @@ typedef struct	s_data
 	int		line_length;
 	int		endian;
 }				t_data;
+
+typedef struct	s_fractal
+{
+	void	*connect;
+	void	*window;
+	t_data	image;
+}				t_fractal;
 
 #endif

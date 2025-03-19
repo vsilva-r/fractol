@@ -5,6 +5,7 @@
         "fractol.h": "c",
         "x.h": "c",
         "keysym.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "unistd.h": "c"
     }
 }
