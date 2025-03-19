@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-int calculate_mandelbrot(double real, double im, int max_iter)
+int calculate_mandelbrot(double real, double im, t_fractal *fractal)
 {
     t_complex   z;
     t_complex   c;
@@ -10,14 +10,14 @@ int calculate_mandelbrot(double real, double im, int max_iter)
     c.real = real;
     c.im = im;
     i = 0;
-    while (i < max_iter)
+    while (i < fractal->iterations)
     {
-        z = compute(z, c);
-        if ((z.real * z.real + z.im * z.im) > BOUND)
+        z = sum(square(z), c);
+        if ((z.real * z.real + z.im * z.im) > fractal->escape)
             return (i);
         i++;
     }
-    return (max_iter);
+    return (fractal->iterations);
 }
 
 void my_pixel_put(int x, int y, t_image *img, int color)
@@ -33,8 +33,8 @@ void handle_pixel(int x, int y, t_fractal *fractal)
     double  im;
     int     i;
     int     color;
-    real = scale(x, fractal->min, fractal->max, WID) * fractal->zoom + fractal->shift_x;
-    im = scale(y, fractal->max, fractal->min, HEI) * fractal->zoom + fractal->shift_y;
+    real = scale(x, fractal->min, fractal->max, WIDTH) * fractal->zoom + fractal->shift_x;
+    im = scale(y, fractal->max, fractal->min, HEIGHT) * fractal->zoom + fractal->shift_y;
     color = 0;
     i = 0;
     if (fractal->type == 0)

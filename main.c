@@ -161,8 +161,8 @@ void    get_pixel_color(int x, int y, t_complex c, t_pixels *img)
 
     z = get_complex((double)x, (double)y, *img);
     iter = do_iterate((t_complex){0, 0}, z, MAX_ITER, BOUND);
-    color = rand() % 0x120045;
-    /* color = COLOR_MAX / MAX_ITER * (iter % MAX_ITER); */
+    /* color = rand() % 0x120045; */
+    color = ((iter % MAX_ITER)) * (0xffffff / MAX_ITER);
     ft_pixel_put(x, y, img, color);
 }
 
