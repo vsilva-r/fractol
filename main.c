@@ -20,29 +20,41 @@
 		f);
 } */
 
-int    fractal_init(t_fractal *frac)
+int    fractal_init(t_fractal *fractal)
 {
-    frac->connect = mlx_init();
-    if (!frac->connect)
+    fractal->connect = mlx_init();
+    if (!fractal->connect)
+    {
+        free(fractal->connect);
         return(-1);
-	frac->window = mlx_new_window(frac->connect, WID, HEI, "Hello world!");
-	if (!frac->window) // free later
-        mlx_destroy_display(frac->connect);
-		free (frac->connect);
+    }
+	fractal->window = mlx_new_window(fractal->connect, WID, HEI, "Fract'ol!");
+	if (!fractal->window)
+    {
+        mlx_destroy_display(fractal->connect);
+		free (fractal->connect);
         return(-1);
-    frac->image.img = mlx_new_image(frac->connect, WID, HEI);
-	frac->image.addr = mlx_get_data_addr(frac->image.img, &frac->image.bpp, &frac->image.line_length,
-								&frac->image.endian);
+    }
+    fractal->image.img = mlx_new_image(fractal->connect, WID, HEI);
+	if (!fractal->image.img)
+    {
+        mlx_destroy_window(fractal->connect, fractal->window);
+		mlx_destroy_display(fractal->connect);
+		free (fractal->connect);
+        return(-1);
+    }
+    fractal->image.addr = mlx_get_data_addr(fractal->image.img, &fractal->image.bpp, &fractal->image.line_length,
+								&fractal->image.endian);
     return(0);
 }
 
-int	close_window(void *mlx, void *win, t_fractal *frac)
+int	close_window(t_fractal *fractal)
 {
     printf("1 Closing window. Bye!");
-	mlx_destroy_image(frac->connect, frac->image.img);
-	mlx_destroy_window(frac->connect, win);
-	mlx_destroy_display(frac->connect);
-	free(frac->connect);
+	mlx_destroy_image(fractal->connect, fractal->image.img);
+	mlx_destroy_window(fractal->connect, fractal->window);
+	mlx_destroy_display(fractal->connect);
+	free(fractal->connect);
 	exit(1);
     printf("2 Closing window. Bye!");
 	return (-1);
@@ -65,10 +77,11 @@ void    hooks_init(t_fractal *f)
 		StructureNotifyMask,
 		close_window,
 		f);
+    mlx_loop_hook(f->connect, NULL, NULL);
 }
 
 // LEARN HOW THIS WORKS
-void	ft_pixel_put(int x, int y, t_data *img, int color)
+void	ft_pixel_put(int x, int y, t_image *img, int color)
 {
 	int	offset;
 
@@ -106,7 +119,7 @@ int    do_iterate(t_complex z, t_complex c, int max_iter, double bound)
     return  iter;
 }
 
-t_complex   get_complex(double x, double y, t_data img)
+t_complex   get_complex(double x, double y, t_image img)
 {
     t_complex   z;
 
@@ -115,7 +128,7 @@ t_complex   get_complex(double x, double y, t_data img)
     return(z);
 }
 
-void    get_pixel_color(int x, int y, t_complex c, t_data *img)
+void    get_pixel_color(int x, int y, t_complex c, t_image *img)
 {
     t_complex   z;
     int         iter;
@@ -130,16 +143,17 @@ void    get_pixel_color(int x, int y, t_complex c, t_data *img)
 
 int	main(int argc, char **argv)
 {
-	t_fractal   *fractol;
-    t_data    img;
+	t_fractal   fractol;
+    t_image    img;
     int     y;
     int     x;
     t_complex   c;
 
     c.x = 0;
     c.y = 0;
-    fractal_init(fractol);
-    hooks_init(fractol);
+    fractol = (t_fractal){0, 0, {0, 0, 0 ,0, 0}};
+    fractal_init(&fractol);
+    hooks_init(&fractol);
 	/* mlx = mlx_init();
     if (!mlx)
         return(-1);
@@ -166,14 +180,15 @@ int	main(int argc, char **argv)
         while (++x < WID)
         {
             /* ft_pixel_put(x, y, &img, (x-y)%1); */
-            get_pixel_color(x, y, c, &img);
+            get_pixel_color(x, y, c, &fractol.image);
         }
     }
-    mlx_put_image_to_window(fractol->connect, fractol->window, img.img, 0, 0);
-    mlx_loop(fractol->connect);
-    mlx_destroy_window(fractol->connect, fractol->window);
-	mlx_destroy_display(fractol->connect);
-	free(fractol->connect);
+    mlx_put_image_to_window(fractol.connect, fractol.window, fractol.image.img, 0, 0);
+    mlx_loop(fractol.connect);
+    mlx_destroy_image(fractol.connect, fractol.image.img);
+    mlx_destroy_window(fractol.connect, fractol.window);
+	mlx_destroy_display(fractol.connect);
+	free(fractol.connect);
     return(0);
 }
 

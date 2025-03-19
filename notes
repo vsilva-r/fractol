@@ -23,3 +23,9 @@ What is the image?
 What are the two pointers in the image struct?
 - The get_addr pointer is the pointer to the first pixel in the array of pixels.
 - The pointer from mlx_new_image is... what?
+
+
+Key codes vs Key symbols >
+	The Key Code is the position in the keyboard. A in AZERTY has the same 
+	key code as Q in QWERTY.
+	Key Symbol is what you get after checking the keyboard layout in use!

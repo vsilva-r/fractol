@@ -25,20 +25,20 @@ typedef	struct s_complex
 }				t_complex;
 
 
-typedef struct	s_data 
+typedef struct	s_image
 {
-	void	*img;
-	char	*addr;
+	char	*ptr;
 	int		bpp;
 	int		line_length;
 	int		endian;
-}				t_data;
+}				t_pixels;
 
 typedef struct	s_fractal
 {
 	void	*connect;
 	void	*window;
-	t_data	image;
+	void	*image;
+	t_pixels	pixels
 }				t_fractal;
 
 #endif
