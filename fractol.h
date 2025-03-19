@@ -13,9 +13,9 @@
 # define YELLOW 	50 *255*255 + 255*255 + 250
 # define COLOR_MAX 	255*255*255 + 255*255 + 255
 
-# define HEI 500
-# define WID 800
-# define MAX_ITER 424
+# define HEI 720
+# define WID 1080
+# define MAX_ITER 500
 # define BOUND 2
 
 typedef	struct s_complex
@@ -38,7 +38,10 @@ typedef struct	s_fractal
 	void	*connect;
 	void	*window;
 	void	*image;
+	int		color_base;
 	t_pixels	pixels;
 }				t_fractal;
+
+int    handle_no_event(t_fractal *fractol);
 
 #endif

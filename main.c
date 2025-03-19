@@ -45,64 +45,8 @@ int    fractal_init(t_fractal *fractal)
     }
     fractal->pixels.ptr = mlx_get_data_addr(fractal->image, &fractal->pixels.bpp, &fractal->pixels.line_length,
 								&fractal->pixels.endian);
+    fractal->color_base = 0x001000;
     return(0);
-}
-
-int mouse_handler(int keysym, int x, int y, t_fractal *fractal)
-{
-    (void)keysym;
-    printf("Mouse Closing window. Bye!");
-	mlx_destroy_image(fractal->connect, fractal->image);
-	mlx_destroy_window(fractal->connect, fractal->window);
-	mlx_destroy_display(fractal->connect);
-	free(fractal->connect);
-	exit(1);
-    printf("2 Closing window. Bye!");
-	return (-1);
-}
-
-int key_handler(int keysym, t_fractal *fractal)
-{
-    if(keysym != XK_Return)
-    {
-        printf("Key Closing window. Bye!");
-        mlx_destroy_image(fractal->connect, fractal->image);
-        mlx_destroy_window(fractal->connect, fractal->window);
-        mlx_destroy_display(fractal->connect);
-        free(fractal->connect);
-        exit(1);
-        printf("2 Closing window. Bye!");       
-    }
-    return (-1);
-    
-}
-
-int	close_window(t_fractal *fractal)
-{
-    printf("Other Closing window. Bye!");
-	mlx_destroy_image(fractal->connect, fractal->image);
-	mlx_destroy_window(fractal->connect, fractal->window);
-	mlx_destroy_display(fractal->connect);
-	free(fractal->connect);
-	exit(1);
-    printf("2 Closing window. Bye!");
-	return (-1);
-}
-
-void    hooks_init(t_fractal *f)
-{
-    mlx_key_hook(f->window,
-		key_handler,
-		f);
-	mlx_mouse_hook(f->window,
-		mouse_handler,
-		f);
-	mlx_hook(f->window,
-		DestroyNotify,
-		StructureNotifyMask,
-		close_window,
-		f);
-    mlx_loop_hook(f->connect, NULL, NULL);
 }
 
 // LEARN HOW THIS WORKS
@@ -144,7 +88,7 @@ int    do_iterate(t_complex z, t_complex c, int max_iter, double bound)
     return  iter;
 }
 
-t_complex   get_complex(double x, double y, t_pixels img)
+t_complex   get_complex(double x, double y, t_pixels pixels)
 {
     t_complex   z;
 
@@ -153,17 +97,108 @@ t_complex   get_complex(double x, double y, t_pixels img)
     return(z);
 }
 
-void    get_pixel_color(int x, int y, t_complex c, t_pixels *img)
+void    get_pixel_color(int x, int y, t_fractal *fractol)
 {
     t_complex   z;
     int         iter;
     int         color = x + y;
 
-    z = get_complex((double)x, (double)y, *img);
+    z = get_complex((double)x, (double)y, fractol->pixels);
     iter = do_iterate((t_complex){0, 0}, z, MAX_ITER, BOUND);
     /* color = rand() % 0x120045; */
-    color = ((iter % MAX_ITER)) * (0xffffff / MAX_ITER);
-    ft_pixel_put(x, y, img, color);
+    color = ((iter % MAX_ITER) % MAX_ITER) * (fractol->color_base / MAX_ITER);
+    ft_pixel_put(x, y, &(fractol->pixels), color);
+}
+
+void    render_fractol(t_fractal *fractol)
+{
+    int x;
+    int y;
+
+    y = -1;
+    while (++y < HEI)
+    {
+        x = -1;
+        while (++x < WID)
+        {
+            /* ft_pixel_put(x, y, &img, (x-y)%1); */
+            get_pixel_color(x, y, fractol);
+        }
+    }
+    mlx_put_image_to_window(fractol->connect, fractol->window, fractol->image, 0, 0);
+}
+
+int mouse_handler(int keysym, int x, int y, t_fractal *fractal)
+{
+    (void)keysym;
+    printf("Mouse Closing window. Bye!");
+	mlx_destroy_image(fractal->connect, fractal->image);
+	mlx_destroy_window(fractal->connect, fractal->window);
+	mlx_destroy_display(fractal->connect);
+	free(fractal->connect);
+	exit(1);
+    printf("2 Closing window. Bye!");
+	return (-1);
+}
+
+int key_handler(int keysym, t_fractal *fractal)
+{
+    if(keysym == XK_0)
+    {
+        fractal->color_base += 0x111111;
+        render_fractol(fractal);
+    }
+    if(keysym == XK_9)
+    {
+        fractal->color_base -= 0x111111;
+        render_fractol(fractal);
+    }
+    if(keysym == XK_Escape)
+    {
+        printf("Key Closing window. Bye!");
+        mlx_destroy_image(fractal->connect, fractal->image);
+        mlx_destroy_window(fractal->connect, fractal->window);
+        mlx_destroy_display(fractal->connect);
+        free(fractal->connect);
+        exit(1);
+        printf("2 Closing window. Bye!");       
+    }
+    return (-1);
+    
+}
+
+int	close_window(t_fractal *fractal)
+{
+    printf("Other Closing window. Bye!");
+	mlx_destroy_image(fractal->connect, fractal->image);
+	mlx_destroy_window(fractal->connect, fractal->window);
+	mlx_destroy_display(fractal->connect);
+	free(fractal->connect);
+	exit(1);
+    printf("2 Closing window. Bye!");
+	return (-1);
+}
+
+void    hooks_init(t_fractal *f)
+{
+    mlx_key_hook(f->window,
+		key_handler,
+		f);
+	mlx_mouse_hook(f->window,
+		mouse_handler,
+		f);
+	mlx_hook(f->window,
+		DestroyNotify,
+		StructureNotifyMask,
+		close_window,
+		f);
+    mlx_loop_hook(f->connect, handle_no_event, f);
+}
+
+int    handle_no_event(t_fractal *fractol)
+{
+    // fractol->color_base += 0x111111;
+    return(0);
 }
 
 int	main(int argc, char **argv)
@@ -175,7 +210,7 @@ int	main(int argc, char **argv)
 
     c.x = 0;
     c.y = 0;
-    fractol = (t_fractal){0, 0, 0, {0, 0 ,0, 0}};
+    fractol = (t_fractal){0, 0, 0, 0, {0, 0 ,0, 0}};
     fractal_init(&fractol);
     hooks_init(&fractol);
 	/* mlx = mlx_init();
@@ -197,17 +232,7 @@ int	main(int argc, char **argv)
     img.img = mlx_new_image(mlx, WID, HEI);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length,
 								&img.endian); */
-    y = -1;
-    while (++y < HEI)
-    {
-        x = -1;
-        while (++x < WID)
-        {
-            /* ft_pixel_put(x, y, &img, (x-y)%1); */
-            get_pixel_color(x, y, c, &fractol.pixels);
-        }
-    }
-    mlx_put_image_to_window(fractol.connect, fractol.window, fractol.image, 0, 0);
+    render_fractol(&fractol);
     mlx_loop(fractol.connect);
     mlx_destroy_image(fractol.connect, fractol.image);
     mlx_destroy_window(fractol.connect, fractol.window);
