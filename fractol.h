@@ -25,7 +25,7 @@ typedef	struct s_complex
 }				t_complex;
 
 
-typedef struct	s_image
+typedef struct	s_pixels
 {
 	char	*ptr;
 	int		bpp;
@@ -38,7 +38,7 @@ typedef struct	s_fractal
 	void	*connect;
 	void	*window;
 	void	*image;
-	t_pixels	pixels
+	t_pixels	pixels;
 }				t_fractal;
 
 #endif
