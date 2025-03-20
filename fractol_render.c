@@ -24,13 +24,12 @@ int    do_iterate(t_complex z, t_complex c, int max_iter, double bound)
     return  iter;
 }
 
-t_complex   get_complex(double x, double y, t_pixels pixels)
+t_complex   get_complex(double x, double y, t_fractal f)
 {
     t_complex   z;
 
-    (void)pixels;
-    z.x = -BOUND + (x / WID) * 2 * BOUND;
-    z.y = BOUND - (y / HEI) * 2 * BOUND;
+    z.x = (-BOUND + (x / WID) * 2 * BOUND) / f.zoom + f.translate.x;
+    z.y = (BOUND - (y / HEI) * 2 * BOUND) / f.zoom + f.translate.y;
     return(z);
 }
 
@@ -40,12 +39,12 @@ void    get_pixel_color(int x, int y, t_fractal *fractol)
     int         iter;
     int         color = x + y;
 
-    z = get_complex((double)x, (double)y, fractol->pixels);
+    z = get_complex((double)x, (double)y, *fractol);
     if(fractol->mandelbrot == 1)
         fractol->c = z;
     iter = do_iterate(z, fractol->c, MAX_ITER, BOUND);
     /* color = rand() % 0x120045; */
-    color = ((iter % MAX_COLORS)) * (fractol->color_base / MAX_COLORS) * 2;
+    color = ((iter % MAX_ITER)) * (fractol->color_base / MAX_COLORS) * 2;
     ft_pixel_put(x, y, &(fractol->pixels), color);
 }
 

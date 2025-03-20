@@ -23,21 +23,21 @@ int	main(int argc, char* argv[]) // int argc, char **argv)
 {
 	t_fractal   fractol;
     
-    printf("%d, %d\n", argc == 2, !(ft_strncmp(argv[1], "mandelbrot", 10)));
     if (argc == 2 && !(ft_strncmp(argv[1], "mandelbrot", 10)))
     {
         fractol.mandelbrot = 1;
     }
     else if (argc == 3)
     {
-        printf("%d, %d", ft_atoi(argv[1]), ft_atoi(argv[2]));
         fractol.mandelbrot = 0;
         fractol.c.x = ft_atoi(argv[1]);
         fractol.c.y = ft_atoi(argv[2]);
     }
     else
     {
-        printf("Bad function call!");
+        printf("Bad function call!\n");
+        printf("Usage:	%s mandelbrot\n", argv[0]);
+        printf("OR	%s num1 num2\n", argv[0]);
         exit(1);
     }
     fractal_init(&fractol);

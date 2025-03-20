@@ -20,7 +20,7 @@
 # define WID 720
 # define MAX_ITER 50
 # define MAX_COLORS 15
-# define BOUND 2
+# define BOUND 3
 
 typedef	struct s_complex
 {
@@ -44,13 +44,17 @@ typedef struct	s_fractal
 	void	*image;
 	int		color_base;
 	int		mandelbrot;
+	double	zoom;
+	int		moving;
+	t_complex	translate;
 	t_complex	c;
 	t_pixels	pixels;
 }				t_fractal;
 
 int    fractal_init(t_fractal *fractal);
+void    fractal_stats_init(t_fractal *fractal);
 void    hooks_init(t_fractal *f);
-t_complex   get_complex(double x, double y, t_pixels pixels);
+t_complex   get_complex(double x, double y, t_fractal f);
 t_complex compute(t_complex z, t_complex c);
 double  magnitude(t_complex z);
 int    do_iterate(t_complex z, t_complex c, int max_iter, double bound);
