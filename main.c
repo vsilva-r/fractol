@@ -19,13 +19,27 @@
 		f);
 } */
 
-int	main() // int argc, char **argv)
+int	main(int argc, char* argv[]) // int argc, char **argv)
 {
 	t_fractal   fractol;
-    t_complex   c;
-
-    c.x = 0;
-    c.y = 0;
+    
+    printf("%d, %d\n", argc == 2, !(ft_strncmp(argv[1], "mandelbrot", 10)));
+    if (argc == 2 && !(ft_strncmp(argv[1], "mandelbrot", 10)))
+    {
+        fractol.mandelbrot = 1;
+    }
+    else if (argc == 3)
+    {
+        printf("%d, %d", ft_atoi(argv[1]), ft_atoi(argv[2]));
+        fractol.mandelbrot = 0;
+        fractol.c.x = ft_atoi(argv[1]);
+        fractol.c.y = ft_atoi(argv[2]);
+    }
+    else
+    {
+        printf("Bad function call!");
+        exit(1);
+    }
     fractal_init(&fractol);
     hooks_init(&fractol);
 	/* mlx = mlx_init();

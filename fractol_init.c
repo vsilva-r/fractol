@@ -26,8 +26,7 @@ int    fractal_init(t_fractal *fractal)
     fractal->pixels.ptr = mlx_get_data_addr(fractal->image, &fractal->pixels.bpp, &fractal->pixels.line_length,
 								&fractal->pixels.endian);
     fractal->color_base = 0x001000;
-    fractal->c.x = 0;
-    fractal->c.y = 1;
+    fractal->mandelbrot = fractal->mandelbrot & 1;
     return(0);
 }
 

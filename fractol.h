@@ -5,6 +5,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <time.h>
+# include "libft/libft.h"
 # include "minilibx-linux/mlx.h"
 # include "X11/X.h"
 # include "X11/keysym.h"
@@ -17,8 +18,8 @@
 
 # define HEI 720
 # define WID 720
-# define MAX_ITER 100
-# define MAX_COLORS 40
+# define MAX_ITER 50
+# define MAX_COLORS 15
 # define BOUND 2
 
 typedef	struct s_complex
@@ -42,7 +43,7 @@ typedef struct	s_fractal
 	void	*window;
 	void	*image;
 	int		color_base;
-	int		type;
+	int		mandelbrot;
 	t_complex	c;
 	t_pixels	pixels;
 }				t_fractal;

@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-LFLAGS = -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm
+LFLAGS = -Llibft -lft -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm
 
 NAME := fractol
 
@@ -12,7 +12,8 @@ SRCS = main.c \
 
 OBJS = $(SRCS:%.c=objs/%.o)
 
-MLIBX = ./minilibx-linux
+MLIBX = ./minilibx-linux/libmlx.a
+LIBFT = ./libft/libft.a
 
 RM = rm -f
 
@@ -21,15 +22,17 @@ $(OBJS): $(SRCS) fractol.h
 	${CC} ${CFLAGS} ${SRCS} -c
 	mv *.o objs
 	
-${NAME}: ${OBJS} minilibx
+${NAME}: ${OBJS} minilibx ${LIBFT}
 	${CC} ${OBJS} ${LFLAGS} ${CFLAGS} -o ${NAME}.out
 
-minilibx: 
-	make -C ${MLIBX}
+${MLIBX}: 
+	make -C minilibx_linus
+
+${LIBFT}:
+	make -C libft
 
 
 all: ${NAME}
-	./${NAME}.out
 clean:
 	${RM} -r objs
 

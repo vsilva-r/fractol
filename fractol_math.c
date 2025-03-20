@@ -16,6 +16,7 @@ double  magnitude(t_complex z)
     abs = sqrt((z.x * z.x) + (z.y * z.y));
     return abs;
 }
+
 /*
 int     color_fade(void)
 {
