@@ -19,7 +19,7 @@
 # define HEI 720
 # define WID 720
 # define MAX_ITER 50
-# define MAX_COLORS 15
+# define MAX_COLORS 52
 # define BOUND 3
 
 typedef	struct s_complex
@@ -58,6 +58,7 @@ typedef struct	s_fractal
 	t_pixels	pixels;
 }				t_fractal;
 
+double	ft_atof(char *str);
 int    fractal_init(t_fractal *fractal);
 void    fractal_stats_init(t_fractal *fractal);
 void    hooks_init(t_fractal *f);

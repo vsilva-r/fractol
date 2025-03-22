@@ -30,14 +30,6 @@ int    fractal_mlx_init(t_fractal *fractal)
     return(0);
 }
 
-void    fractal_stats_init(t_fractal *fractal)
-{
-    fractal->mandelbrot = fractal->mandelbrot & 1;
-    fractal->zoom = 1;
-    fractal->translate = (t_complex){0, 0};
-    fractal->moving = 0;
-}
-
 void    fractal_colors_init(t_fractal *fractal)
 {
     int i;
@@ -47,17 +39,25 @@ void    fractal_colors_init(t_fractal *fractal)
     i = 0;
     while (++i < MAX_COLORS)
     {
-        fractal->colors[i] = colorfade_r(fractal->colors[i-1]);
+        fractal->colors[i] = fractal->colors[i-1];
         j = 0;
         while (++j < COLORS_PHASE)
             fractal->colors[i] = colorfade_r(fractal->colors[i]);
     }
 }
 
+void    fractal_stats_init(t_fractal *fractal)
+{
+    fractal->mandelbrot = fractal->mandelbrot & 1;
+    fractal->zoom = 1;
+    fractal->translate = (t_complex){0, 0};
+    fractal->moving = 0;
+    fractal_colors_init(fractal);
+}
+
 int     fractal_init(t_fractal *fractol)
 {
     fractal_stats_init(fractol);
-    fractal_colors_init(fractol);
     return(fractal_mlx_init(fractol));
 }
 

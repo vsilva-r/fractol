@@ -43,9 +43,7 @@ void    get_pixel_color(int x, int y, t_fractal *fractol)
     if(fractol->mandelbrot == 1)
         fractol->c = z;
     iter = do_iterate(z, fractol->c, MAX_ITER, BOUND);
-    /* color = rand() % 0x120045; */
-    color = fractol->colors[iter].color;
-    // color = colors[iter % MAX_COLOR];
+    color = fractol->colors[iter % MAX_COLORS].color * (iter != MAX_ITER);
     ft_pixel_put(x, y, &(fractol->pixels), color);
 }
 
@@ -67,7 +65,7 @@ void    render_fractol(t_fractal *fractol)
         }
     }
     mlx_put_image_to_window(fractol->connect, fractol->window, fractol->image, 0, 0);
-    snprintf(string, 15, "Color = %x", fractol->colors[MAX_COLORS].color);
+    snprintf(string, 15, "Color = %.6x", fractol->colors[1].color);
     mlx_string_put(fractol->connect, fractol->window, WID * 0.8, HEI * 0.8, 0xffffff, string);
     free(string);
 }

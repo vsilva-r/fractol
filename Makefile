@@ -6,6 +6,7 @@ NAME := fractol
 
 SRCS = main.c \
 	fractol_colorfade.c \
+	fractol_parse.c \
 	fractol_init.c \
 	fractol_render.c \
 	fractol_events.c \

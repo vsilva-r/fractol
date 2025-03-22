@@ -30,8 +30,8 @@ int	main(int argc, char* argv[]) // int argc, char **argv)
     else if (argc == 3)
     {
         fractol.mandelbrot = 0;
-        fractol.c.x = ft_atoi(argv[1]);
-        fractol.c.y = ft_atoi(argv[2]);
+        fractol.c.x = ft_atof(argv[1]);
+        fractol.c.y = ft_atof(argv[2]);
     }
     else
     {

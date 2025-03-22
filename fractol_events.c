@@ -57,14 +57,22 @@ int key_handler(int keysym, t_fractal *fractal)
     {
         fractal_fade_l(fractal);
     }
+    if(keysym == XK_O)
+    {
+        fractal->c.x += (double)2 * (double)BOUND / (double)WID * 5;
+    }
+    if(keysym == XK_P)
+    {
+        fractal->c.x -= (double)2 * (double)BOUND / (double)WID * 5;
+    }
     if (keysym == XK_M)
     {
         fractal->mandelbrot = 1;
     }
     if (keysym == XK_Left)
-        fractal->translate.x += 0.1;
-    if (keysym == XK_Right)
         fractal->translate.x -= 0.1;
+    if (keysym == XK_Right)
+        fractal->translate.x += 0.1;
     if (keysym == XK_Up)
         fractal->translate.y += 0.1;
     if (keysym == XK_Down)
