@@ -8,13 +8,13 @@ int    handle_no_event(t_fractal *fractol)
     if( - time < )
          */
     (void)fractol;
-    // fractol->color_base += 0x010101;
     flag = -1;
     if(magnitude(fractol->c) >= BOUND)
         flag *= 1;
     if (fractol->moving)
     {
          fractol->c.x += flag * (double)2 * (double)BOUND / (double)WID * 5;
+         fractal_fade_r(fractol);
     }
     render_fractol(fractol);
     return(0);
@@ -51,11 +51,11 @@ int key_handler(int keysym, t_fractal *fractal)
         fractal->moving ^= 1;
     if(keysym == XK_0)
     {
-        fractal->color_base += 0xff00ff;
+        fractal_fade_r(fractal);
     }
     if(keysym == XK_9)
     {
-        fractal->color_base -= 0xff00ff;
+        fractal_fade_l(fractal);
     }
     if (keysym == XK_M)
     {

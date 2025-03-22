@@ -1,10 +1,11 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fPIE
 LFLAGS = -Llibft -lft -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm
 
 NAME := fractol
 
 SRCS = main.c \
+	fractol_colorfade.c \
 	fractol_init.c \
 	fractol_render.c \
 	fractol_events.c \
@@ -22,7 +23,7 @@ $(OBJS): $(SRCS) fractol.h
 	${CC} ${CFLAGS} ${SRCS} -c
 	mv *.o objs
 	
-${NAME}: ${OBJS} minilibx ${LIBFT}
+${NAME}: minilibx ${LIBFT} ${OBJS}
 	${CC} ${OBJS} ${LFLAGS} ${CFLAGS} -o ${NAME}.out
 
 ${MLIBX}: 
@@ -33,6 +34,7 @@ ${LIBFT}:
 
 
 all: ${NAME}
+
 clean:
 	${RM} -r objs
 

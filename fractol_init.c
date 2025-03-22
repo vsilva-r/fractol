@@ -1,4 +1,5 @@
 #include "fractol.h"
+#define COLORS_PHASE 0xffffff / MAX_COLORS
 
 int    fractal_mlx_init(t_fractal *fractal)
 {
@@ -31,22 +32,40 @@ int    fractal_mlx_init(t_fractal *fractal)
 
 void    fractal_stats_init(t_fractal *fractal)
 {
-    fractal->color_base = 0x001000;
     fractal->mandelbrot = fractal->mandelbrot & 1;
     fractal->zoom = 1;
     fractal->translate = (t_complex){0, 0};
     fractal->moving = 0;
 }
 
+void    fractal_colors_init(t_fractal *fractal)
+{
+    int i;
+    int j;
+
+    fractal->colors[0] = (t_colorfade){0xff0000, 1, -1};
+    i = 0;
+    while (++i < MAX_COLORS)
+    {
+        fractal->colors[i] = colorfade_r(fractal->colors[i-1]);
+        j = 0;
+        while (++j < COLORS_PHASE)
+            fractal->colors[i] = colorfade_r(fractal->colors[i]);
+    }
+}
+
 int     fractal_init(t_fractal *fractol)
 {
     fractal_stats_init(fractol);
+    fractal_colors_init(fractol);
     return(fractal_mlx_init(fractol));
 }
 
 void    hooks_init(t_fractal *f)
 {
-    mlx_key_hook(f->window,
+    mlx_hook(f->window, 
+        KeyPress, 
+        KeyPressMask,
 		key_handler,
 		f);
 	mlx_mouse_hook(f->window,

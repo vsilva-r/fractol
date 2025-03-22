@@ -37,12 +37,19 @@ typedef struct	s_pixels
 	int		endian;
 }				t_pixels;
 
+typedef struct s_colorfade
+{
+	int	color;
+	int	fade;
+	int	direction;
+}				t_colorfade;
+
 typedef struct	s_fractal
 {
 	void	*connect;
 	void	*window;
 	void	*image;
-	int		color_base;
+	t_colorfade	colors[MAX_COLORS];
 	int		mandelbrot;
 	double	zoom;
 	int		moving;
@@ -54,6 +61,10 @@ typedef struct	s_fractal
 int    fractal_init(t_fractal *fractal);
 void    fractal_stats_init(t_fractal *fractal);
 void    hooks_init(t_fractal *f);
+t_colorfade	colorfade_r(t_colorfade colorfade);
+t_colorfade	colorfade_l(t_colorfade colorfade);
+void	fractal_fade_r(t_fractal *f);
+void	fractal_fade_l(t_fractal *f);
 t_complex   get_complex(double x, double y, t_fractal f);
 t_complex compute(t_complex z, t_complex c);
 double  magnitude(t_complex z);
