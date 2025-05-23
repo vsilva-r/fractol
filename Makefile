@@ -27,7 +27,7 @@ $(OBJS): $(SRCS) fractol.h
 	mv *.o objs
 	
 ${NAME}: ${MLIBX} ${LIBFT} ${FT_PRINTF} ${OBJS}
-	${CC} ${OBJS} ${LFLAGS} ${CFLAGS} -o ${NAME}.out
+	${CC} ${OBJS} ${LFLAGS} ${CFLAGS} -o ${NAME}
 
 ${MLIBX}: 
 	make -C minilibx_linus
@@ -45,7 +45,7 @@ clean:
 	${RM} -r objs
 
 fclean: clean
-	${RM} ${NAME}.out
+	${RM} ${NAME}
 
 re: fclean all
 	

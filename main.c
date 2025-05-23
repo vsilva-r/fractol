@@ -16,7 +16,7 @@ int	main(int argc, char *argv[])
 {
 	t_fractal	fractol;
 
-	if (argc == 2 && !(ft_strncmp(argv[1], "mandelbrot", 10)))
+	if (argc == 2 && !(ft_strncmp(argv[1], "mandelbrot", 11)))
 		fractol.mandelbrot = 1;
 	else if (argc == 3)
 	{
