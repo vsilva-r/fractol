@@ -6,6 +6,7 @@
 # include <math.h>
 # include <time.h>
 # include "libft/libft.h"
+# include "ft_printf/ft_printf.h"
 # include "minilibx-linux/mlx.h"
 # include "X11/X.h"
 # include "X11/keysym.h"

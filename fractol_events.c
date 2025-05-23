@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol_events.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsilva-r <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/23 12:39:35 by vsilva-r          #+#    #+#             */
+/*   Updated: 2025/05/23 12:39:38 by vsilva-r         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 int    handle_no_event(t_fractal *fractol)
-{
+{ 
     static int  flag;
     /* static time_t time;
 
@@ -43,7 +55,7 @@ int mouse_handler(int keysym, int x, int y, t_fractal *fractal)
 
 int key_handler(int keysym, t_fractal *fractal)
 {
-    if (keysym == XK_R)
+    if (keysym == XK_r)
     {
         fractal_stats_init(fractal);
     }
@@ -57,20 +69,20 @@ int key_handler(int keysym, t_fractal *fractal)
     {
         fractal_fade_l(fractal);
     }
-    if(keysym == XK_O)
+    if(keysym == XK_o)
     {
         fractal->c.x += (double)2 * (double)BOUND / (double)WID * 5;
     }
-    if(keysym == XK_P)
+    if(keysym == XK_p)
     {
         fractal->c.x -= (double)2 * (double)BOUND / (double)WID * 5;
     }
-    if (keysym == XK_M)
+    if (keysym == XK_m)
     {
         fractal->mandelbrot = 1;
     }
     if (keysym == XK_Left)
-        fractal->translate.x -= 0.1;
+        fractal_stats_init(fractal);
     if (keysym == XK_Right)
         fractal->translate.x += 0.1;
     if (keysym == XK_Up)
@@ -79,7 +91,7 @@ int key_handler(int keysym, t_fractal *fractal)
         fractal->translate.y -= 0.1;
     if(keysym == XK_Escape)
     {
-        printf("ESC pressed. \n");
+        ft_printf("ESC pressed. \n");
         close_window(fractal);
     }
     render_fractol(fractal);
@@ -89,7 +101,7 @@ int key_handler(int keysym, t_fractal *fractal)
 
 int	close_window(t_fractal *fractal)
 {
-    printf("Closing window. Bye!\n");
+    ft_printf("Closing window. Bye!\n");
 	mlx_destroy_image(fractal->connect, fractal->image);
 	mlx_destroy_window(fractal->connect, fractal->window);
 	mlx_destroy_display(fractal->connect);

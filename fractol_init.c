@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol_init.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsilva-r <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/23 12:39:41 by vsilva-r          #+#    #+#             */
+/*   Updated: 2025/05/23 12:39:41 by vsilva-r         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 #define COLORS_PHASE 0xffffff / MAX_COLORS
 
@@ -58,6 +70,7 @@ void    fractal_stats_init(t_fractal *fractal)
 int     fractal_init(t_fractal *fractol)
 {
     fractal_stats_init(fractol);
+    
     return(fractal_mlx_init(fractol));
 }
 

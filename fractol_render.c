@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol_render.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsilva-r <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/23 12:39:53 by vsilva-r          #+#    #+#             */
+/*   Updated: 2025/05/23 12:39:55 by vsilva-r         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 void	ft_pixel_put(int x, int y, t_pixels *img, int color)
@@ -65,7 +77,7 @@ void    render_fractol(t_fractal *fractol)
         }
     }
     mlx_put_image_to_window(fractol->connect, fractol->window, fractol->image, 0, 0);
-    snprintf(string, 15, "Color = %.6x", fractol->colors[1].color);
-    mlx_string_put(fractol->connect, fractol->window, WID * 0.8, HEI * 0.8, 0xffffff, string);
+    //snprintf(string, 15, "Color = %.6x", fractol->colors[1].color);
+    //mlx_string_put(fractol->connect, fractol->window, WID * 0.8, HEI * 0.8, 0xffffff, string);
     free(string);
 }
