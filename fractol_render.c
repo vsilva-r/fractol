@@ -30,7 +30,6 @@ int	do_iterate(t_complex z, t_complex c, int max_iter, double bound)
 		z = compute(z, c);
 		if (magnitude(z) > bound)
 		{
-			// iter = 0;
 			break ;
 		}
 	}
@@ -74,13 +73,10 @@ void	render_fractol(t_fractal *fractol)
 		x = -1;
 		while (++x < WID)
 		{
-			/* ft_pixel_put(x, y, &img, (x-y)%1); */
 			get_pixel_color(x, y, fractol);
 		}
 	}
 	mlx_put_image_to_window(fractol->connect, fractol->window, \
 							fractol->image, 0, 0);
-	snprintf(string, 15, "Color = %.6x", fractol->colors[1].color);
-	mlx_string_put(fractol->connect, fractol->window, WID * 0.8, HEI * 0.8, 0xffffff, string);
 	free(string);
 }

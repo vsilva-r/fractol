@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-#define COLORS_PHASE 0xffffff / MAX_COLORS
+// #define COLORS_PHASE 0xffffff / MAX_COLORS
 
 int	fractal_mlx_init(t_fractal *f)
 {
@@ -52,7 +52,7 @@ void	fractal_colors_init(t_fractal *fractal)
 	{
 		fractal->colors[i] = fractal->colors[i - 1];
 		j = 0;
-		while (++j < COLORS_PHASE)
+		while (++j < 0xffffff / MAX_COLORS)
 			fractal->colors[i] = colorfade_r(fractal->colors[i]);
 	}
 }

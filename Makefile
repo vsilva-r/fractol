@@ -10,6 +10,7 @@ SRCS = main.c \
 	fractol_init.c \
 	fractol_render.c \
 	fractol_events.c \
+	fractol_events_utils.c \
 	fractol_math.c
 
 OBJS = $(SRCS:%.c=objs/%.o)
@@ -44,7 +45,7 @@ clean:
 	${RM} -r objs
 
 fclean: clean
-	${RM} ${NAME}
+	${RM} ${NAME}.out
 
 re: fclean all
 	

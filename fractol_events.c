@@ -30,8 +30,6 @@ int	handle_no_event(t_fractal *fractol)
 
 int	mouse_handler(int keysym, int x, int y, t_fractal *fractal)
 {
-	// t_complex   mouse_pos;
-
 	(void)x;
 	(void)y;
 	if (keysym == Button5)
@@ -42,41 +40,14 @@ int	mouse_handler(int keysym, int x, int y, t_fractal *fractal)
 	{
 		fractal->zoom /= 0.95;
 	}
-	// mouse_pos = get_complex(x, y, fractal);
-	//fractal->translate.x *= (x - BOUND / 2) / BOUND; //(x - WID / 2) / WID;
-	//fractal->translate.y *= (y - BOUND / 2) / BOUND; //(y - HEI / 2) / HEI;
 	render_fractol(fractal);
 	return (-1);
 }
 
 int	key_handler(int keysym, t_fractal *fractal)
 {
-	if (keysym == XK_r)
-		fractal_stats_init(fractal);
-	if (keysym == XK_space)
-		fractal->moving ^= 1;
-	if (keysym == XK_0)
-		fractal_fade_r(fractal);
-	if (keysym == XK_9)
-		fractal_fade_l(fractal);
-	if (keysym == XK_u)
-		fractal->c.x += (double)BOUND / (double)WID * 5;
-	if (keysym == XK_k)
-		fractal->c.x -= (double)BOUND / (double)WID * 5;
-	if (keysym == XK_i)
-		fractal->c.y += (double)BOUND / (double)HEI * 5;
-	if (keysym == XK_j)
-		fractal->c.y -= (double)BOUND / (double)HEI * 5;
-	if (keysym == XK_m)
-		fractal->mandelbrot ^= 1;
-	if (keysym == XK_Left)
-		fractal->translate.x -= 0.1;
-	if (keysym == XK_Right)
-		fractal->translate.x += 0.1;
-	if (keysym == XK_Up)
-		fractal->translate.y += 0.1;
-	if (keysym == XK_Down)
-		fractal->translate.y -= 0.1;
+	keys_1(keysym, fractal);
+	keys_2(keysym, fractal);
 	if (keysym == XK_Escape)
 	{
 		ft_printf("ESC pressed. \n");

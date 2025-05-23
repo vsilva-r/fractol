@@ -28,24 +28,3 @@ double	magnitude(t_complex z)
 	abs = sqrt((z.x * z.x) + (z.y * z.y));
 	return (abs);
 }
-
-/*
-int	color_fade(void)
-{
-	static int  color;
-	static int  flag_red;
-	static int  flag_blue;
-	static int  flag_green;
-
-	if(color / RED == 255)
-	{
-		if(flag_green)
-			color -= BLUE;
-		if(flag_blue)
-			color -= GREEN;
-		else
-			color += BLUE;
-	}
-	return(color);
-}
-*/
