@@ -60,6 +60,8 @@ void	fractal_colors_init(t_fractal *fractal)
 void	fractal_stats_init(t_fractal *fractal)
 {
 	fractal->mandelbrot = fractal->mandelbrot & 1;
+	fractal->c.x = fractal->c_input.x;
+	fractal->c.y = fractal->c_input.y;
 	fractal->zoom = 1;
 	fractal->translate = (t_complex){0, 0};
 	fractal->moving = 0;

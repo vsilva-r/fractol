@@ -59,10 +59,14 @@ int	key_handler(int keysym, t_fractal *fractal)
 		fractal_fade_r(fractal);
 	if (keysym == XK_9)
 		fractal_fade_l(fractal);
-	if (keysym == XK_o)
-		fractal->c.x += (double)2 * (double)BOUND / (double)WID * 5;
-	if (keysym == XK_p)
-		fractal->c.x -= (double)2 * (double)BOUND / (double)WID * 5;
+	if (keysym == XK_u)
+		fractal->c.x += (double)BOUND / (double)WID * 5;
+	if (keysym == XK_k)
+		fractal->c.x -= (double)BOUND / (double)WID * 5;
+	if (keysym == XK_i)
+		fractal->c.y += (double)BOUND / (double)HEI * 5;
+	if (keysym == XK_j)
+		fractal->c.y -= (double)BOUND / (double)HEI * 5;
 	if (keysym == XK_m)
 		fractal->mandelbrot ^= 1;
 	if (keysym == XK_Left)

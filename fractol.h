@@ -64,6 +64,7 @@ typedef struct s_fractal
 	double			zoom;
 	int				moving;
 	t_complex		translate;
+	t_complex		c_input;
 	t_complex		c;
 	t_pixels		pixels;
 }				t_fractal;

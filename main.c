@@ -21,8 +21,8 @@ int	main(int argc, char *argv[])
 	else if (argc == 3)
 	{
 		fractol.mandelbrot = 0;
-		fractol.c.x = ft_atof(argv[1]);
-		fractol.c.y = ft_atof(argv[2]);
+		fractol.c_input.x = ft_atof(argv[1]);
+		fractol.c_input.y = ft_atof(argv[2]);
 	}
 	else
 	{

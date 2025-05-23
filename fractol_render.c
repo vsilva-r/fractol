@@ -54,8 +54,9 @@ void	get_pixel_color(int x, int y, t_fractal *fractol)
 
 	z = get_complex((double)x, (double)y, *fractol);
 	if (fractol->mandelbrot == 1)
-		fractol->c = z;
-	iter = do_iterate(z, fractol->c, MAX_ITER, BOUND);
+		iter = do_iterate(z, z, MAX_ITER, BOUND);
+	else
+		iter = do_iterate(z, fractol->c, MAX_ITER, BOUND);
 	color = fractol->colors[iter % MAX_COLORS].color * (iter != MAX_ITER);
 	ft_pixel_put(x, y, &(fractol->pixels), color);
 }
