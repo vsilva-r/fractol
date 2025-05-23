@@ -69,7 +69,8 @@ int	ft_iputbinary(unsigned long nbr)
 int main()
 {
 	ft_printf("\t1: \t%b\n\t5: \t%b\n\t63: \t%b\n\n", 1, 5, 63);
-	ft_printf("INT_MIN: \t%b\nINT_MAX: \t%b\n\t-2: \t%B\n\n", INT_MIN, INT_MAX, 2);
+	ft_printf("INT_MIN: \t%b\nINT_MAX: \t%b\n\t-2: \t%B\n\n", INT_MIN,\
+	 INT_MAX, 2);
 }
 */
 /*

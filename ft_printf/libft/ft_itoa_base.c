@@ -86,6 +86,6 @@ char	*ft_itoa_base(int n, char *base)
 		return (NULL);
 	if (n > 0 || base_size % 8 == 0)
 		return (actual_itoa_base((unsigned) n, base, base_size));
-	else 
+	else
 		return (actual_itoa_base(-n, base, base_size));
 }

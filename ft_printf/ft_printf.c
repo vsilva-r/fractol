@@ -25,7 +25,7 @@ static int	iprintpointer(void *pointer)
 	if (!pointer)
 		return (ft_iputstr("(nil)"));
 	else
-		return (ft_iputstr("0x") 
+		return (ft_iputstr("0x") \
 			+ ft_uputnbr_base((unsigned long) pointer, HEXL));
 }
 

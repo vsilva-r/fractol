@@ -14,8 +14,8 @@
 #define R 3
 #define G 2
 #define B 1
-// #define FADE_DIGITS (colorfade.color & (colorfade.fade * 255)) / \
-colorfade.fade % 255
+// #define FADE_DIGITS (colorfade.color & (colorfade.fade * 255)) /
+// colorfade.fade % 255
 
 t_colorfade	colorfade_r(t_colorfade colorfade)
 {

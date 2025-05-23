@@ -87,8 +87,8 @@ void		render_fractol(t_fractal *fractol);
 int			handle_no_event(t_fractal *fractol);
 int			mouse_handler(int keysym, int x, int y, t_fractal *fractal);
 int			key_handler(int keysym, t_fractal *fractal);
-void    	keys_1(int keysym, t_fractal *fractal);
-void    	keys_2(int keysym, t_fractal *fractal);
+void		keys_1(int keysym, t_fractal *fractal);
+void		keys_2(int keysym, t_fractal *fractal);
 int			close_window(t_fractal *fractal);
 
 #endif

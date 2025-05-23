@@ -1,2 +1,0 @@
-How to compile with libft.h
-get access to library
